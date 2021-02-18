@@ -1,4 +1,4 @@
-package com.wdzfxs.currencyexchangerate.service;
+package com.wdzfxs.currencyexchangerate.client;
 
 import com.wdzfxs.currencyexchangerate.dto.Currency;
 import lombok.extern.slf4j.Slf4j;
