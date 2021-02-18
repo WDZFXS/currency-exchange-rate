@@ -26,7 +26,7 @@ class CurrencyFeignClientTest {
 
     private static ResponseEntity<Map<String, String>> allCurrencies;
     private static ResponseEntity<Currency> latestSymbolRateCurrency;
-    private static ResponseEntity<Currency> yesterdaySymbolRateCurrency;
+    private static ResponseEntity<Currency> symbolRateByDateCurrency;
     private static boolean isInit = false;
     @Autowired
     private CurrencyFeignClient client;
@@ -113,39 +113,39 @@ class CurrencyFeignClientTest {
 
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-    public class YesterdaySymbolRate {
+    public class SymbolRateByDate {
 
         @BeforeAll
         void setUp() {
-            yesterdaySymbolRateCurrency = client.yesterdaySymbolRate(new SimpleDateFormat("yyyy-MM-dd")
+            symbolRateByDateCurrency = client.symbolRateByDate(new SimpleDateFormat("yyyy-MM-dd")
                     .format(new Date(Instant.now()
                             .minus(1, ChronoUnit.DAYS).toEpochMilli())), testCurrency);
-            log.info("Yesterday currency rate = " + yesterdaySymbolRateCurrency);
+            log.info("Yesterday currency rate = " + symbolRateByDateCurrency);
 
-            if (yesterdaySymbolRateCurrency.getBody() == null) {
-                fail("yesterdaySymbolRateCurrency body is null");
+            if (symbolRateByDateCurrency.getBody() == null) {
+                fail("symbolRateByDateCurrency body is null");
             }
         }
 
         @Test
-        void yesterdaySymbolRate_httpStatus200() {
-            assertEquals(HttpStatus.OK, yesterdaySymbolRateCurrency.getStatusCode());
+        void symbolRateByDate_httpStatus200() {
+            assertEquals(HttpStatus.OK, symbolRateByDateCurrency.getStatusCode());
         }
 
         @Test
-        void yesterdaySymbolRate_notEmpty() {
-            final Map<String, Double> rates = yesterdaySymbolRateCurrency.getBody().getRates();
+        void symbolRateByDate_notEmpty() {
+            final Map<String, Double> rates = symbolRateByDateCurrency.getBody().getRates();
             assertFalse(rates.isEmpty());
         }
 
         @Test
-        void yesterdaySymbolRate_containsBaseCurrencyValue() {
-            assertEquals(baseCurrency, yesterdaySymbolRateCurrency.getBody().getBase());
+        void symbolRateByDate_containsBaseCurrencyValue() {
+            assertEquals(baseCurrency, symbolRateByDateCurrency.getBody().getBase());
         }
 
         @Test
-        void yesterdaySymbolRate_containsTestCurrencyValue() {
-            final Map<String, Double> rates = yesterdaySymbolRateCurrency.getBody().getRates();
+        void symbolRateByDate_containsTestCurrencyValue() {
+            final Map<String, Double> rates = symbolRateByDateCurrency.getBody().getRates();
             assertTrue(containsKeyIgnoreCase(rates, testCurrency));
         }
     }
