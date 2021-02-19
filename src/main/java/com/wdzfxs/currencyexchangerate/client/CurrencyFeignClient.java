@@ -1,5 +1,6 @@
 package com.wdzfxs.currencyexchangerate.client;
 
+import com.wdzfxs.currencyexchangerate.client.config.CurrencyConfiguration;
 import com.wdzfxs.currencyexchangerate.dto.Currency;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
 
-@FeignClient(name = "currency-client", url = "https://openexchangerates.org")
+@FeignClient(name = "currency-client", url = "https://openexchangerates.org", configuration = CurrencyConfiguration.class)
 public interface CurrencyFeignClient {
 
     @GetMapping("/api/currencies.json?show_alternative=true&show_inactive=true")
