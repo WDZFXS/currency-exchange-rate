@@ -1,4 +1,4 @@
-package com.wdzfxs.currencyexchangerate.client;
+package com.wdzfxs.currencyexchangerate.service;
 
 /*
 List of potential API errors https://developers.giphy.com/docs/api/#response-codes

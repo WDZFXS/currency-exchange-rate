@@ -1,4 +1,4 @@
-package com.wdzfxs.currencyexchangerate.client.handler;
+package com.wdzfxs.currencyexchangerate.service.handler;
 
 public class ErrorMessage {
 

@@ -1,4 +1,4 @@
-package com.wdzfxs.currencyexchangerate.client.handler;
+package com.wdzfxs.currencyexchangerate.service.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import static com.wdzfxs.currencyexchangerate.client.CurrencyResponseException.*;
+import static com.wdzfxs.currencyexchangerate.service.CurrencyResponseException.*;
 
 @Slf4j
 @ControllerAdvice
@@ -20,15 +20,15 @@ public class CurrencyExceptionHandler {
 
 
     @ExceptionHandler(InvalidAppId.class)
-    public ResponseEntity<Object> invalidAppId(InvalidAppId e) {
-        log.error("Invalid app-id. Site = \"{}\", api-key = \"{}\". Cause: {}", exchangeUrl, exchangeAppId, e.getMessage());
+    public ResponseEntity<Object> invalidAppId(String message) {
+        log.error("Invalid app-id. Site = \"{}\", api-key = \"{}\". Cause: {}", exchangeUrl, exchangeAppId, message);
 
         return new ResponseEntity<>(new ErrorMessage().internalServerError(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(MissingAppId.class)
-    public ResponseEntity<Object> missingAppId(MissingAppId e) {
-        log.error("Missing app-id. Site = \"{}\", api-key = \"{}\". Cause: {}", exchangeUrl, exchangeAppId, e.getMessage());
+    public ResponseEntity<Object> missingAppId(String message) {
+        log.error("Missing app-id. Site = \"{}\", api-key = \"{}\". Cause: {}", exchangeUrl, exchangeAppId, message);
 
         return new ResponseEntity<>(new ErrorMessage().internalServerError(), HttpStatus.INTERNAL_SERVER_ERROR);
     }

@@ -1,8 +1,7 @@
-package com.wdzfxs.currencyexchangerate.dto;
+package com.wdzfxs.currencyexchangerate.model;
 
 import lombok.Data;
 
-@Data
 public class CurrencyError {
 
     private String error;

@@ -2,9 +2,15 @@ package com.wdzfxs.currencyexchangerate.service;
 
 import com.wdzfxs.currencyexchangerate.OwnUtils;
 import com.wdzfxs.currencyexchangerate.dto.Currency;
+import com.wdzfxs.currencyexchangerate.model.InvalidSymbol;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @Slf4j
 @Service
@@ -35,6 +41,13 @@ public class MainService {
         }
     }
 
+    public ResponseEntity invalidSymbol() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(CONTENT_TYPE, APPLICATION_JSON.toString());
+        InvalidSymbol body = new InvalidSymbol("Invalid symbol", currencyService.allCurrencies());
+        return new ResponseEntity(body, httpHeaders, 400);
+    }
+
     private String randomGifIdByTag(String tag) {
         return giphyService.randomGif(tag).getId();
     }
@@ -42,7 +55,7 @@ public class MainService {
     /*
     Returns true if current currency rate above than currency rate by date
      */
-    private boolean estimate(Currency currencyByDate, Currency currentCurrency) {
+    protected boolean estimate(Currency currencyByDate, Currency currentCurrency) {
         if (currencyByDate.getRates().size() != currentCurrency.getRates().size()) {
             log.error("Unacceptable Currency.getRates() size");
         }

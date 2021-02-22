@@ -27,12 +27,11 @@ class CurrencyFeignClientTest {
     private static ResponseEntity<Map<String, String>> allCurrencies;
     private static ResponseEntity<Currency> latestSymbolRateCurrency;
     private static ResponseEntity<Currency> symbolRateByDateCurrency;
-    private static boolean isInit = false;
     @Autowired
     private CurrencyFeignClient client;
-    @Value("${base-currency}")
+    @Value("${open-exchange-rates.base-currency}")
     private String baseCurrency;
-    @Value("${test-currency}")
+    @Value("${open-exchange-rates.test-currency}")
     private String testCurrency;
 
     private boolean containsKeyIgnoreCase(Map<String, ?> map, String key) {

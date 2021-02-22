@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "giphy-media-client", url = "https://i.giphy.com")
+@FeignClient(name = "giphy-media-client", url = "${giphy-media.url}")
 public interface MediaFeignClient {
 
     @GetMapping(value = "/media/{id}/giphy.gif")

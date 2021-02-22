@@ -1,4 +1,4 @@
-package com.wdzfxs.currencyexchangerate.client;
+package com.wdzfxs.currencyexchangerate.service;
 
 /*
 List of potential API errors https://docs.openexchangerates.org/docs/errors
@@ -16,6 +16,12 @@ public class CurrencyResponseException {
 
     public static class InvalidAppId extends RuntimeException {
         public InvalidAppId(String message) {
+            super(message);
+        }
+    }
+
+    public static class Unauthorized extends RuntimeException {
+        public Unauthorized(String message) {
             super(message);
         }
     }

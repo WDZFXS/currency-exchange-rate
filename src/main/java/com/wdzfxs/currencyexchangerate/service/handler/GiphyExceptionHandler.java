@@ -1,4 +1,4 @@
-package com.wdzfxs.currencyexchangerate.client.handler;
+package com.wdzfxs.currencyexchangerate.service.handler;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import static com.wdzfxs.currencyexchangerate.client.GiphyResponseException.TooManyRequests;
-import static com.wdzfxs.currencyexchangerate.client.GiphyResponseException.Unauthorized;
+import static com.wdzfxs.currencyexchangerate.service.GiphyResponseException.TooManyRequests;
+import static com.wdzfxs.currencyexchangerate.service.GiphyResponseException.Unauthorized;
 
 @Slf4j
 @ControllerAdvice
