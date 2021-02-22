@@ -34,4 +34,10 @@ class ControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string(containsString("available_symbols")));
     }
+
+    @Test
+    void status_ok() throws Exception {
+        mockMvc.perform(get("/rate?symbol=RUB"))
+                .andExpect(status().isOk());
+    }
 }

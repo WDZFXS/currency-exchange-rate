@@ -9,6 +9,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
+import static com.wdzfxs.currencyexchangerate.service.MainServiceException.DifferentCurrencyRateSize;
+import static com.wdzfxs.currencyexchangerate.service.MainServiceException.EmptyCurrencyRate;
 import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
@@ -56,11 +60,22 @@ public class MainService {
     Returns true if current currency rate above than currency rate by date
      */
     protected boolean estimate(Currency currencyByDate, Currency currentCurrency) {
-        if (currencyByDate.getRates().size() != currentCurrency.getRates().size()) {
-            log.error("Unacceptable Currency.getRates() size");
+        Map<String, Double> byDate = currencyByDate.getRates();
+        Map<String, Double> current = currentCurrency.getRates();
+
+        if (byDate == null || current == null) {
+            throw new EmptyCurrencyRate("Rates is null. byDate: " + byDate + ", current: " + current);
         }
 
-        return currentCurrency.getRates().entrySet().stream()
-                .allMatch(e -> e.getValue() > currencyByDate.getRates().get(e.getKey()));
+        if (byDate.isEmpty() || current.isEmpty()) {
+            throw new EmptyCurrencyRate("Empty rates. byDate: " + byDate + ", current: " + current);
+        }
+
+        if (byDate.size() != current.size()) {
+            throw new DifferentCurrencyRateSize("Different rates size");
+        }
+
+        return current.entrySet().stream()
+                .allMatch(e -> e.getValue() > byDate.get(e.getKey()));
     }
 }
