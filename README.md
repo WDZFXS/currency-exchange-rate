@@ -1,6 +1,11 @@
 # currency-exchange-rate
 
-Build steps:
+Run application steps:
+1. cd {project_directory}
+2. gradle bootrun
+
+
+Docker run steps:
 1. cd {project_directory}
 2. gradle build
 3. docker build .
