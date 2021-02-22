@@ -16,8 +16,8 @@ public interface CurrencyFeignClient {
     ResponseEntity<Map<String, String>> allCurrencies();
 
     @GetMapping("/api/latest.json?app_id=${open-exchange-rates.app-id}&base=${open-exchange-rates.base-currency}&prettyprint=false&show_alternative=true")
-    ResponseEntity<Currency> latestSymbolRate(@RequestParam("symbol") String symbol);
+    ResponseEntity<Currency> latestSymbolRate(@RequestParam("symbols") String symbol);
 
     @GetMapping("/api/historical/{date}.json?app_id=${open-exchange-rates.app-id}&base=${open-exchange-rates.base-currency}&show_alternative=true&prettyprint=false")
-    ResponseEntity<Currency> symbolRateByDate(@PathVariable("date") String date, @RequestParam("symbol") String symbol);
+    ResponseEntity<Currency> symbolRateByDate(@PathVariable("date") String date, @RequestParam("symbols") String symbol);
 }
