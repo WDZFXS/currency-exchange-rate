@@ -12,12 +12,12 @@ import java.util.Map;
 @FeignClient(name = "currency-client", url = "${open-exchange-rates.url}")
 public interface CurrencyFeignClient {
 
-    @GetMapping("/api/currencies.json?show_alternative=true&show_inactive=true")
+    @GetMapping("${open-exchange-rates.api-path.currencies}")
     ResponseEntity<Map<String, String>> allCurrencies();
 
-    @GetMapping("/api/latest.json?app_id=${open-exchange-rates.app-id}&base=${open-exchange-rates.base-currency}&prettyprint=false&show_alternative=true")
+    @GetMapping("${open-exchange-rates.api-path.lates}")
     ResponseEntity<Currency> latestSymbolRate(@RequestParam("symbols") String symbol);
 
-    @GetMapping("/api/historical/{date}.json?app_id=${open-exchange-rates.app-id}&base=${open-exchange-rates.base-currency}&show_alternative=true&prettyprint=false")
+    @GetMapping("${open-exchange-rates.api-path.historical}")
     ResponseEntity<Currency> symbolRateByDate(@PathVariable("date") String date, @RequestParam("symbols") String symbol);
 }

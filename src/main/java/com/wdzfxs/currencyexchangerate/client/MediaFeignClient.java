@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "giphy-media-client", url = "${giphy-media.url}")
 public interface MediaFeignClient {
 
-    @GetMapping(value = "/media/{id}/giphy.gif")
+    @GetMapping(value = "${giphy-media.api-path.media}")
     ResponseEntity<byte[]> gif(@PathVariable("id") String id);
 }
